@@ -56,6 +56,11 @@ class CustomDrawerNavigation extends StatelessWidget{
           onTap: () => {},
         ),
         ListTile(
+          leading: const Icon(Icons.shopping_bag),
+          title: const Text('Pedidos'),
+          onTap: () => {},
+        ),
+        ListTile(
           leading: const Icon(Icons.person),
           title: const Text('Perfil'),
           onTap: () => {},
