@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+
+class Header extends StatelessWidget{
+  const Header({super.key});
+
+  @override
+  Widget build(BuildContext context) => Stack(
+    alignment: Alignment.topCenter,
+    clipBehavior: Clip.none,
+    children: [
+      Container(
+        width: double.infinity,
+        height: 110,
+        decoration: BoxDecoration(
+          color: Colors.lightBlue,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(50),
+            bottomRight: Radius.circular(50)
+          )
+        ),
+      ),
+      Positioned(
+        top: 60,
+        child: Image(
+          image: AssetImage('assets/images/shalom_logo.png'),
+          width: 80,
+          height: 80,
+        )
+      )
+    ],
+  );
+}
