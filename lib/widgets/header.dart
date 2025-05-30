@@ -10,7 +10,7 @@ class Header extends StatelessWidget{
     children: [
       Container(
         width: double.infinity,
-        height: 110,
+        height: 55,
         decoration: BoxDecoration(
           color: Colors.lightBlue,
           borderRadius: BorderRadius.only(
@@ -20,9 +20,9 @@ class Header extends StatelessWidget{
         ),
       ),
       Positioned(
-        top: 60,
+        top: 0,
         child: Image(
-          image: AssetImage('assets/images/shalom_logo.png'),
+          image: AssetImage('assets/icon.png'),
           width: 80,
           height: 80,
         )
