@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomDrawerNavigation extends StatelessWidget{
-  const CustomDrawerNavigation({super.key});
+  final int cartItemCount;
+
+  const CustomDrawerNavigation({
+    super.key,
+    this.cartItemCount = 0
+  });
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -32,7 +37,22 @@ class CustomDrawerNavigation extends StatelessWidget{
         ),
         ListTile(
           leading: const Icon(Icons.shopping_cart),
-          title: const Text('Carrinho de compras'),
+          title: Row(
+            children: [
+              Text('Carrinho de compras'),
+              SizedBox(width: 16),
+              if(cartItemCount > 0) ...[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    shape: BoxShape.circle
+                  ),
+                  child: Text('13'),
+                )
+              ],
+            ],
+          ),
           onTap: () => {},
         ),
         ListTile(
