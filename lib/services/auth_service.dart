@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:ecommerce_app/services/api.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
 
@@ -19,7 +21,7 @@ class AuthService {
     }
 
     final response = await http.post(
-      Uri.parse(''),
+      Uri.parse('$apiUrl/auth/register'),
       headers: {'Content-Type':'application/json'},
       body: jsonEncode({
         'name': name,
@@ -46,7 +48,7 @@ class AuthService {
     }
 
     final response = await http.post(
-      Uri.parse(''),
+      Uri.parse('$apiUrl/auth/login'),
       headers: {'Content-Type':'application/json'},
       body: jsonEncode({
         'email': email,
@@ -64,6 +66,10 @@ class AuthService {
         return null;
       }
 
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', token);
+      prefs.setString('userName', userName);
+      prefs.setString('userId', userId);
       return token;
     }
 
