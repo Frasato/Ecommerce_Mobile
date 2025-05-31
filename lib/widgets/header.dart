@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget{
@@ -12,7 +13,7 @@ class Header extends StatelessWidget{
         width: double.infinity,
         height: 55,
         decoration: BoxDecoration(
-          color: Colors.lightBlue,
+          color: customBlue,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(50),
             bottomRight: Radius.circular(50)
