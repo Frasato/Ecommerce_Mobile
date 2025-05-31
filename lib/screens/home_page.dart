@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/constants/custom_colors.dart';
+import 'package:ecommerce_app/screens/product_page.dart';
+import 'package:ecommerce_app/services/product_service.dart';
 import 'package:ecommerce_app/widgets/custom_drawer_navigation.dart';
 import 'package:ecommerce_app/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/widgets/header.dart';
@@ -13,6 +15,13 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage>{
+  late Future<List<Map<String, dynamic>>> _productsFuture;
+
+  @override
+  void initState(){
+    super.initState();
+    _productsFuture = ProductService().getAllProducts();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -55,22 +64,34 @@ class _HomePageState extends State<HomePage>{
                 ),
               ),
               const SizedBox(height: 10),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                  ],
-                ),
+              FutureBuilder<List<Map<String, dynamic>>>(
+                future: _productsFuture,
+                builder: (context, snapshot){
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if(snapshot.hasError){
+                    return Center(child: Text('Erro ao carregar produtos'));
+                  }
+                  final products = snapshot.data ?? [];
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    itemBuilder: (context, index){
+                      final product = products[index];
+                      return ProductCard(
+                        product: product,
+                        onTap: (){
+                          Navigator.push(
+                            context, MaterialPageRoute(
+                              builder: (_) => ProductPage(productId: product['id'],)
+                            )
+                          );
+                        }
+                      );
+                    }
+                  );
+                }
               )
             ],
           )
