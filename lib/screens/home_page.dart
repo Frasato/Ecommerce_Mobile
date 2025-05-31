@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage>{
                   final products = snapshot.data ?? [];
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 10,
+                    itemCount: products.length,
                     itemBuilder: (context, index){
                       final product = products[index];
                       return ProductCard(
