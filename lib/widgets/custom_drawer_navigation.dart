@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawerNavigation extends StatelessWidget{
   final int cartItemCount;
@@ -68,7 +69,12 @@ class CustomDrawerNavigation extends StatelessWidget{
         ListTile(
           leading: const Icon(Icons.logout_outlined),
           title: const Text('Sair da conta'),
-          onTap: () => {},
+          onTap: () async{
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.clear();
+            Navigator.of(context).pop();
+            Navigator.pushReplacementNamed(context, '/login');
+          },
         ),
       ],
     ),
