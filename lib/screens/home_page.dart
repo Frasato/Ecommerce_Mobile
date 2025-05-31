@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/constants/custom_colors.dart';
 import 'package:ecommerce_app/widgets/custom_drawer_navigation.dart';
 import 'package:ecommerce_app/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/widgets/header.dart';
+import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget{
@@ -16,7 +18,7 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context) => Scaffold(
     drawer: CustomDrawerNavigation(),
     appBar: AppBar(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: customBlue,
       iconTheme: IconThemeData(
         color: Colors.white
       ),
@@ -28,18 +30,50 @@ class _HomePageState extends State<HomePage>{
           Header(),
           SizedBox(height: 50),
           Container(
-            width: 300,
-            height: 150,
+            width: 350,
+            height: 110,
             decoration: BoxDecoration(
-              color: Colors.amber,
+              color: customYellow,
               borderRadius: BorderRadius.all(
                 Radius.circular(10)
               )
             ),
             child: Text('Banner para promoções'),
           ),
-          SizedBox(height: 20),
-          CustomTextField()
+          const SizedBox(height: 20),
+          CustomTextField(),
+          const SizedBox(height: 40),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 45),
+                child: Text(
+                  'Mais vendidos',
+                  style: TextStyle(fontWeight: FontWeight.w700, color: customBlue),
+                ),
+              ),
+              const SizedBox(height: 10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+                  ],
+                ),
+              )
+            ],
+          )
         ],
       ),
     ) 
