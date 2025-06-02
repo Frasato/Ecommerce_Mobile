@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage>{
     appBar: AppBar(
       backgroundColor: customBlue,
       iconTheme: IconThemeData(
-        color: Colors.white
+        color: customLightGrey
       ),
     ),
     body: SingleChildScrollView(
@@ -60,12 +60,12 @@ class _HomePageState extends State<HomePage>{
                 padding: EdgeInsets.symmetric(horizontal: 45),
                 child: Text(
                   'Mais vendidos',
-                  style: TextStyle(fontWeight: FontWeight.w700, color: customBlue),
+                  style: TextStyle(fontWeight: FontWeight.w900, color: customBlue, fontSize: 18),
                 ),
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: 200,
+                height: 250,
                 child: FutureBuilder<List<Map<String, dynamic>>>(
                   future: _productsFuture,
                   builder: (context, snapshot){
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage>{
                           onTap: (){
                             Navigator.push(
                               context, MaterialPageRoute(
-                                builder: (_) => ProductPage(productId: product['id'],)
+                                builder: (_) => ProductPage(productId: product['id'], productCategory: product['category'],)
                               )
                             );
                           }
