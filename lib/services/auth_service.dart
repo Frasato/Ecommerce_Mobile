@@ -6,17 +6,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
 
   static Future<bool> register(
-    String name,
-    String password,
-    String email,
-    String cpf,
+    String? name,
+    String? password,
+    String? email,
+    String? cpf,
     String street,
     String number,
     String city,
     String cep
   ) async{
     
-    if(name.isEmpty || password.isEmpty || email.isEmpty || cpf.isEmpty || street.isEmpty || number.isEmpty || city.isEmpty || cep.isEmpty){
+    if(name == null || password == null || email == null || cpf == null || street.isEmpty || number.isEmpty || city.isEmpty || cep.isEmpty){
       return false;
     }
 
