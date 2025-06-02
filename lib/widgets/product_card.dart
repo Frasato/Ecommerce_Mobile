@@ -31,8 +31,8 @@ class ProductCard extends StatelessWidget{
     child: GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 130,
-        height: 385,
+        width: 170,
+        height: 250,
         decoration: BoxDecoration(
           color: customLightGrey,
           boxShadow: <BoxShadow>[
@@ -49,16 +49,17 @@ class ProductCard extends StatelessWidget{
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: Image.network(product['image'], width: 80, height: 80, fit: BoxFit.cover,),
+              SizedBox(
+                height: 120,
+                child: Image.network(product['image'], fit: BoxFit.cover,),
               ),
               const SizedBox(height: 6),
               Text(product['name'], maxLines: 2, overflow: TextOverflow.ellipsis,),
               const SizedBox(height: 0),
               Row(
                 children: [
-                  Text('R\$${price()}'),
-                  const SizedBox(width: 10),
+                  Text('R\$${price().toStringAsFixed(2)}'),
+                  const SizedBox(width: 60),
                   IconButton(
                     onPressed: () => {},
                     icon: Icon(Icons.add_shopping_cart_rounded)
