@@ -19,7 +19,8 @@ class ProductService {
     );
 
     if(response.statusCode == 200){
-      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+      final decoded = jsonDecode(response.body);
+      return List<Map<String, dynamic>>.from(decoded['products']);
     }else{
       throw Exception('Falha ao carregar produtos');
     }
