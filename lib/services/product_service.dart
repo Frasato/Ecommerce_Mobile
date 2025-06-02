@@ -39,7 +39,8 @@ class ProductService {
     );
 
     if(response.statusCode == 200){
-      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+      final decoded = jsonDecode(response.body);
+      return List<Map<String, dynamic>>.from(decoded['products']);
     }else{
       throw Exception('Falha ao carregar produtos');
     }
@@ -48,6 +49,8 @@ class ProductService {
   Future<Map<String, dynamic>> getProductById(String productId) async{
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
+
+    print('Entrou aqui, token: ${token}');
 
     final response = await http.get(
       Uri.parse('$apiUrl/product/$productId'),
@@ -58,7 +61,9 @@ class ProductService {
     );
 
     if(response.statusCode == 200){
-      return Map<String, dynamic>.from(jsonDecode(response.body));
+      print('response: ${response.statusCode}');
+      final decoded = jsonDecode(response.body);
+      return Map<String, dynamic>.from(decoded['product']);
     }else{
       throw Exception('Falha ao carregar o produto');
     }
