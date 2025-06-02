@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget{
       int value = product['priceWithDiscount'];
       price = value / 100;
     }else{
-      int value = product['priceWithDiscount'];
+      int value = product['price'];
       price = value / 100;
     }
     
@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget{
       onTap: onTap,
       child: Container(
         width: 130,
-        height: 185,
+        height: 385,
         decoration: BoxDecoration(
           color: customLightGrey,
           boxShadow: <BoxShadow>[
@@ -47,11 +47,14 @@ class ProductCard extends StatelessWidget{
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Image.network(product['image']),
-              const SizedBox(height: 20),
-              Text(product['name']),
-              const SizedBox(height: 15),
+              Expanded(
+                child: Image.network(product['image'], width: 80, height: 80, fit: BoxFit.cover,),
+              ),
+              const SizedBox(height: 6),
+              Text(product['name'], maxLines: 2, overflow: TextOverflow.ellipsis,),
+              const SizedBox(height: 0),
               Row(
                 children: [
                   Text('R\$${price()}'),
