@@ -1,8 +1,10 @@
 import 'package:ecommerce_app/constants/custom_colors.dart';
+import 'package:ecommerce_app/screens/register_address_page.dart';
 import 'package:ecommerce_app/styles/buttonStyle.dart';
 import 'package:ecommerce_app/styles/textButtonStyle.dart';
 import 'package:ecommerce_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget{
   const RegisterPage({super.key});
@@ -16,11 +18,27 @@ class _RegisterPageState extends State<RegisterPage>{
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _cpfController = TextEditingController();
 
-  bool _isLoading = false;
+  void _saveInformationsRegister() async{
 
-  void _register() async{
+    if(_nameController.text.isEmpty || 
+      _emailController.text.isEmpty ||
+      _passwordController.text.isEmpty ||
+      _cpfController.text.isEmpty){
+        ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Os campos devem ser preenchidos corretamente')));
+        return;
+      }
 
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', _nameController.text);
+    prefs.setString('email', _emailController.text);
+    prefs.setString('password', _passwordController.text);
+    prefs.setString('cpf', _cpfController.text);
+
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) => const RegisterAddressPage()
+    ));
   }
 
   @override
@@ -54,21 +72,22 @@ class _RegisterPageState extends State<RegisterPage>{
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Bem-vindo', style: TextStyle(
+                    Text('Olá, seja', style: TextStyle(
                       color: customLightGrey,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w900,
                       fontSize: 25,
                       height: 0.8
                     )),
-                    Text('de volta', style: TextStyle(color: customLightGrey, fontWeight: FontWeight.bold, fontSize: 25))
+                    Text('bem-vindo', style: TextStyle(
+                      color: customLightGrey,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 25
+                    ))
                   ],
                 ),
               ],
             ),
             const SizedBox(height: 70),
-            _isLoading? CircularProgressIndicator(
-              color: customYellow,
-            ) :
             Form(
               key: _formKey,
               child: Column(
@@ -88,6 +107,13 @@ class _RegisterPageState extends State<RegisterPage>{
                   ),
                   const SizedBox(height: 25),
                   CustomTextFormField(
+                    controller: _cpfController,
+                    hintText: 'CPF',
+                    validator: (value) => value == null || value.isEmpty ? 'Informe seu CPF' : null,
+                    icon: Icons.credit_card
+                  ),
+                  const SizedBox(height: 25),
+                  CustomTextFormField(
                     controller: _passwordController,
                     hintText: 'Senha',
                     validator: (value) => value == null || value.isEmpty ? 'Informe a senha' : null,
@@ -95,9 +121,9 @@ class _RegisterPageState extends State<RegisterPage>{
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: _register,
+                    onPressed: _saveInformationsRegister,
                     style: buttonStyle,
-                    child: Text('Registrar')
+                    child: Text('Continuar')
                   ),
                   const SizedBox(height: 5),
                   TextButton(
