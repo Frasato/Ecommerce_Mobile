@@ -64,35 +64,38 @@ class _HomePageState extends State<HomePage>{
                 ),
               ),
               const SizedBox(height: 10),
-              FutureBuilder<List<Map<String, dynamic>>>(
-                future: _productsFuture,
-                builder: (context, snapshot){
-                  if(snapshot.connectionState == ConnectionState.waiting){
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  if(snapshot.hasError){
-                    return Center(child: Text('Erro ao carregar produtos'));
-                  }
-                  final products = snapshot.data ?? [];
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: products.length,
-                    itemBuilder: (context, index){
-                      final product = products[index];
-                      return ProductCard(
-                        product: product,
-                        onTap: (){
-                          Navigator.push(
-                            context, MaterialPageRoute(
-                              builder: (_) => ProductPage(productId: product['id'],)
-                            )
-                          );
-                        }
-                      );
+              SizedBox(
+                height: 200,
+                child: FutureBuilder<List<Map<String, dynamic>>>(
+                  future: _productsFuture,
+                  builder: (context, snapshot){
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return Center(child: CircularProgressIndicator());
                     }
-                  );
-                }
-              )
+                    if(snapshot.hasError){
+                      return Center(child: Text('Erro ao carregar produtos'));
+                    }
+                    final products = snapshot.data ?? [];
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: products.length,
+                      itemBuilder: (context, index){
+                        final product = products[index];
+                        return ProductCard(
+                          product: product,
+                          onTap: (){
+                            Navigator.push(
+                              context, MaterialPageRoute(
+                                builder: (_) => ProductPage(productId: product['id'],)
+                              )
+                            );
+                          }
+                        );
+                      }
+                    );
+                  }
+                ) 
+              ),
             ],
           )
         ],
