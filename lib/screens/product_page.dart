@@ -93,6 +93,11 @@ class _ProductPageState extends State<ProductPage>{
                         SizedBox(height: 20),
                         Text('Sobre o produto', style: TextStyle(fontWeight: FontWeight.w700, color: customBlue, fontSize: 22),),
                         Text(product['description'], style: TextStyle(color: customTextGrey, fontSize: 22),),
+                        SizedBox(height: 20),
+                        Text('Informações', style: TextStyle(fontWeight: FontWeight.w700, color: customBlue, fontSize: 22)),
+                        Text('Produtor: ${product['producer']}'),
+                        Text('Código de barras: ${product['barCode']}'),
+                        Text('Categoria: ${product['category']}')
                       ],
                     );
                   } 
