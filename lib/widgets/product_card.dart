@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget{
@@ -34,10 +33,10 @@ class ProductCard extends StatelessWidget{
         width: 170,
         height: 250,
         decoration: BoxDecoration(
-          color: customLightGrey,
+          color: Colors.white,
           boxShadow: <BoxShadow>[
             BoxShadow(
-              color: const Color.fromARGB(32, 56, 56, 56),
+              color: const Color.fromARGB(18, 56, 56, 56),
               blurRadius: 13.0,
               offset: Offset(10, 6)
             )
@@ -48,6 +47,8 @@ class ProductCard extends StatelessWidget{
           padding: const EdgeInsets.all(5),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: 120,
@@ -59,7 +60,7 @@ class ProductCard extends StatelessWidget{
               Row(
                 children: [
                   Text('R\$${price().toStringAsFixed(2)}'),
-                  const SizedBox(width: 60),
+                  const SizedBox(width: 30),
                   IconButton(
                     onPressed: () => {},
                     icon: Icon(Icons.add_shopping_cart_rounded)
