@@ -29,12 +29,16 @@ class CustomDrawerNavigation extends StatelessWidget{
         ListTile(
           leading: const Icon(Icons.home_outlined),
           title: const Text('Pagina Inicial'),
-          onTap: () => {},
+          onTap: () => {
+            Navigator.pushReplacementNamed(context, '/home')
+          },
         ),
         ListTile(
           leading: const Icon(Icons.amp_stories_rounded),
           title: const Text('Explorar'),
-          onTap: () => {},
+          onTap: () => {
+            Navigator.pushReplacementNamed(context, '/catalog')
+          },
         ),
         ListTile(
           leading: const Icon(Icons.shopping_cart),
