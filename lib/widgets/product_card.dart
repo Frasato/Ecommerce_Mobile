@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/services/cart_service.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget{
@@ -62,7 +63,7 @@ class ProductCard extends StatelessWidget{
                   Text('R\$${price().toStringAsFixed(2)}'),
                   const SizedBox(width: 30),
                   IconButton(
-                    onPressed: () => {},
+                    onPressed: () => CartService.addItemOnCart(product['id']),
                     icon: Icon(Icons.add_shopping_cart_rounded)
                   )
                 ],
