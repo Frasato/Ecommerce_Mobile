@@ -1,13 +1,18 @@
+import 'package:ecommerce_app/constants/custom_colors.dart';
+import 'package:ecommerce_app/services/cart_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawerNavigation extends StatelessWidget{
-  final int cartItemCount;
-
   const CustomDrawerNavigation({
     super.key,
-    this.cartItemCount = 0
   });
+
+  Future<int> _TotalItemsOnCart() async{
+    final cartItems = await CartService.getProductsOnCart();
+    int total = cartItems.length;
+    return total;
+  } 
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -40,26 +45,34 @@ class CustomDrawerNavigation extends StatelessWidget{
             Navigator.pushReplacementNamed(context, '/catalog')
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.shopping_cart),
-          title: Row(
-            children: [
-              Text('Carrinho de compras'),
-              SizedBox(width: 16),
-              if(cartItemCount > 0) ...[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    shape: BoxShape.circle
+        FutureBuilder<int>(
+              future: _TotalItemsOnCart(),
+              builder: (context, snapshot) {
+                int total = snapshot.data ?? 0;
+                return ListTile(
+                  leading: const Icon(Icons.shopping_cart),
+                  title: Row(
+                    children: [
+                      const Text('Carrinho de compras'),
+                      const SizedBox(width: 16),
+                      if (total > 0)
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(
+                            color: customYellow,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '$total',
+                            style: const TextStyle(fontWeight: FontWeight.bold, color: customTextGrey),
+                          ),
+                        ),
+                    ],
                   ),
-                  child: Text('13'),
-                )
-              ],
-            ],
-          ),
-          onTap: () => {},
-        ),
+                  onTap: () => Navigator.pushReplacementNamed(context, '/cart'),
+                );
+              },
+            ),
         ListTile(
           leading: const Icon(Icons.shopping_bag),
           title: const Text('Pedidos'),
