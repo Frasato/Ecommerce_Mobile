@@ -81,6 +81,11 @@ class CustomDrawerNavigation extends StatelessWidget{
         ListTile(
           leading: const Icon(Icons.person),
           title: const Text('Perfil'),
+          onTap: () => Navigator.pushReplacementNamed(context, '/profile'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.chat),
+          title: const Text('Suporte'),
           onTap: () => {},
         ),
         ListTile(
