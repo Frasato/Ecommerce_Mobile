@@ -2,6 +2,7 @@ import 'package:ecommerce_app/screens/cart_page.dart';
 import 'package:ecommerce_app/screens/catalog_page.dart';
 import 'package:ecommerce_app/screens/home_page.dart';
 import 'package:ecommerce_app/screens/login_page.dart';
+import 'package:ecommerce_app/screens/profile_page.dart';
 import 'package:ecommerce_app/screens/register_page.dart';
 import 'package:ecommerce_app/screens/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/catalog': (context) => CatalogPage(searchWord: ''),
         '/cart': (context) => CartPage(),
+        '/profile': (context) => ProfilePage()
       },
     );
   }
