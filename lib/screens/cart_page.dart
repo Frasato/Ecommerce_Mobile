@@ -48,12 +48,8 @@ class _CartPageState extends State<CartPage>{
   }
 
   Future<void> _removeItem(String cartItemId) async{
-    try{
-      await CartService.removeItemFromCart(cartItemId);
-      await _loadCartData();
-    }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro ao remover iten no carrinho: $e')));
-    }
+    await CartService.removeItemFromCart(cartItemId);
+    await _loadCartData();
   }
 
   Future<void> _plusItem(String cartItemId) async{
@@ -74,18 +70,23 @@ class _CartPageState extends State<CartPage>{
       iconTheme: IconThemeData(color: customLightGrey),
     ),
     body: _cartItems.isEmpty?
-      Text('Nenhum produto no carrinho!') 
+      Center(
+        child: Text('Nenhum produto no carrinho!'),
+      ) 
         : _isLoading? 
-        CircularProgressIndicator()
+        Center(
+          child: CircularProgressIndicator(color: customBlue,),
+        )
         :
       SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
           Header(),
-          Text('Total: ${_cartTotal.toStringAsFixed(2)}'),
+          SizedBox(height: 50),
+          Text('Total: R\$${_cartTotal.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w700),),
           SizedBox(
-            height: 250,
+            height: 750,
             child: ListView.builder(
               itemCount: _cartItems.length,
               itemBuilder: (context, index){
