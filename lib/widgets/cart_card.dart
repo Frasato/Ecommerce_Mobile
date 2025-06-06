@@ -51,13 +51,14 @@ class CartCard extends StatelessWidget{
               imageUri,
               height: 110,
               width: 110,
+              fit: BoxFit.cover,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  productName.length > 25? '${productName.substring(0, 25)}...' : productName
-                ),
+                  productName.length > 16? '${productName.substring(0, 16)}...' : productName
+                , softWrap: true,),
                 Text('R\$${productPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
               ],
             ),
@@ -84,7 +85,7 @@ class CartCard extends StatelessWidget{
               ],
             ),
             IconButton(
-              onPressed: () => removeItem,
+              onPressed: removeItem,
               icon: Icon(Icons.restore_from_trash)
             )
           ],
