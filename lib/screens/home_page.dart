@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/constants/custom_colors.dart';
 import 'package:ecommerce_app/screens/product_page.dart';
 import 'package:ecommerce_app/services/product_service.dart';
+import 'package:ecommerce_app/styles/blue_subtitle_text.dart';
 import 'package:ecommerce_app/widgets/custom_drawer_navigation.dart';
 import 'package:ecommerce_app/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/widgets/footer.dart';
@@ -65,7 +66,7 @@ class _HomePageState extends State<HomePage>{
                 padding: EdgeInsets.symmetric(horizontal: 45),
                 child: Text(
                   'Mais vendidos',
-                  style: TextStyle(fontWeight: FontWeight.w900, color: customBlue, fontSize: 18),
+                  style: blueSubtitleTextStyle,
                 ),
               ),
               const SizedBox(height: 10),
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage>{
                 padding: EdgeInsets.symmetric(horizontal: 45),
                 child: Text(
                   'Produtos',
-                  style: TextStyle(fontWeight: FontWeight.w900, color: customBlue, fontSize: 18),
+                  style: blueSubtitleTextStyle,
                 ),
               ),
               Container(
