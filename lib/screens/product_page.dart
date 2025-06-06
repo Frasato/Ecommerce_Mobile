@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/constants/custom_colors.dart';
+import 'package:ecommerce_app/services/cart_service.dart';
 import 'package:ecommerce_app/services/product_service.dart';
 import 'package:ecommerce_app/styles/buttonStyle.dart';
 import 'package:ecommerce_app/widgets/header.dart';
@@ -82,7 +83,7 @@ class _ProductPageState extends State<ProductPage>{
                         SizedBox(height: 35),
                         ElevatedButton(onPressed: (){}, style: buttonStyle, child: Text('Comprar'),),
                         TextButton(
-                          onPressed: (){},
+                          onPressed: () => CartService.addItemOnCart(product['id']),
                           child: Row(
                             children: [
                               Icon(Icons.add_shopping_cart_rounded),
