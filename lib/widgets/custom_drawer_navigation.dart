@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/constants/custom_colors.dart';
 import 'package:ecommerce_app/services/cart_service.dart';
+import 'package:ecommerce_app/services/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -86,7 +87,10 @@ class CustomDrawerNavigation extends StatelessWidget{
         ListTile(
           leading: const Icon(Icons.chat),
           title: const Text('Suporte'),
-          onTap: () => {},
+          onTap: () async{
+            await ChatService().generateChat();
+            Navigator.pushReplacementNamed(context, '/support');
+          },
         ),
         ListTile(
           leading: const Icon(Icons.logout_outlined),
