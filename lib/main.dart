@@ -5,6 +5,7 @@ import 'package:ecommerce_app/screens/login_page.dart';
 import 'package:ecommerce_app/screens/profile_page.dart';
 import 'package:ecommerce_app/screens/register_page.dart';
 import 'package:ecommerce_app/screens/splash_page.dart';
+import 'package:ecommerce_app/screens/support_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Drogarias Shalom Popular',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/catalog': (context) => CatalogPage(searchWord: ''),
         '/cart': (context) => CartPage(),
-        '/profile': (context) => ProfilePage()
+        '/profile': (context) => ProfilePage(),
+        '/support': (context) => SupportPage()
       },
     );
   }
