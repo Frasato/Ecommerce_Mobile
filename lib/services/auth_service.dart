@@ -10,8 +10,11 @@ class AuthService {
     String? password,
     String? email,
     String? cpf,
+    String? phone,
     String street,
     String number,
+    String contryState,
+    String district,
     String city,
     String cep
   ) async{
@@ -27,9 +30,12 @@ class AuthService {
         'name': name,
         'password': password,
         'email': email,
+        'phone': phone,
         'cpf': cpf,
         'street': street,
         'number': number,
+        'countryState': contryState,
+        'district': district,
         'city': city,
         'CEP': cep
       })

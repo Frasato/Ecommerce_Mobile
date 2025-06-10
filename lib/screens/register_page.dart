@@ -17,6 +17,7 @@ class _RegisterPageState extends State<RegisterPage>{
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _cpfController = TextEditingController();
 
@@ -33,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage>{
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('name', _nameController.text);
     prefs.setString('email', _emailController.text);
+    prefs.setString('phone', _phoneController.text);
     prefs.setString('password', _passwordController.text);
     prefs.setString('cpf', _cpfController.text);
 
@@ -104,6 +106,13 @@ class _RegisterPageState extends State<RegisterPage>{
                     hintText: 'Email',
                     validator: (value) => value == null || value.isEmpty ? 'Informe seu email' : null,
                     icon: Icons.email
+                  ),
+                  const SizedBox(height: 25),
+                  CustomTextFormField(
+                    controller: _phoneController,
+                    hintText: 'Telefone',
+                    validator: (value) => value == null || value.isEmpty ? 'Informe um telefone válido' : null,
+                    icon: Icons.phone
                   ),
                   const SizedBox(height: 25),
                   CustomTextFormField(

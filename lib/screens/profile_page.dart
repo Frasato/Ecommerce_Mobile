@@ -60,6 +60,8 @@ class _ProfilePageState extends State<ProfilePage>{
                 SizedBox(height: 6),
                 Text(user['email']),
                 SizedBox(height: 6),
+                Text(user['phone']),
+                SizedBox(height: 6),
                 Text(user['cpf']),
                 SizedBox(height: 25),
                 Text('Endereço', style: blueSubtitleTextStyle,),
