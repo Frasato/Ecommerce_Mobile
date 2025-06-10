@@ -11,7 +11,6 @@ typedef OnMessageReceived = void Function(Map<String, dynamic> message);
 class WebsocketService {
 
   late StompClient _stompClient;
-  bool _isConnected = false;
   final OnMessageReceived onMessageReceived;
 
   WebsocketService({
@@ -34,7 +33,6 @@ class WebsocketService {
       )
     );
 
-    _isConnected = true;
     _stompClient.activate();
   }
 
@@ -71,7 +69,6 @@ class WebsocketService {
   }
 
   void disconnect(){
-    _isConnected = false;
     _stompClient.deactivate();
   }
 }
