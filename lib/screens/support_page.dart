@@ -4,6 +4,7 @@ import 'package:ecommerce_app/styles/chat_button_style.dart';
 import 'package:ecommerce_app/widgets/custom_drawer_navigation.dart';
 import 'package:ecommerce_app/widgets/header.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SupportPage extends StatefulWidget{
   const SupportPage({super.key});
@@ -15,19 +16,25 @@ class SupportPage extends StatefulWidget{
 class _SupportePageState extends State<SupportPage>{
   final TextEditingController _controller = TextEditingController();
   final List<_ChatMessage> messages = [];
-
+  late String? _userId;
   late WebsocketService _websocketService;
 
   @override
   void initState() {
     super.initState();
+
+    SharedPreferences.getInstance().then((prefs){
+      setState(() {
+        _userId = prefs.getString('userId');
+      });
+    });
     
     _websocketService = WebsocketService(
       onMessageReceived: (data){
         setState(() {
           messages.add(_ChatMessage(
-            message: data['content'],
-            isSentByUser: data['author'] == 'USER'
+            message: data['message'],
+            isSentByUser: data['userId'] == _userId? true : false
           ));
         });
       }
@@ -43,7 +50,6 @@ class _SupportePageState extends State<SupportPage>{
     _websocketService.sendMessage(text);
 
     setState(() {
-      messages.add(_ChatMessage(message: text, isSentByUser: true));
       _controller.clear();
     });
   }
