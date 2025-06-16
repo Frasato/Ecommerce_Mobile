@@ -52,18 +52,21 @@ class WebsocketService {
   void sendMessage(String content) async{
     final prefs = await SharedPreferences.getInstance();
     final chatId = prefs.getString('chatId');
+    final userId = prefs.getString('userId');
 
     final data = await UserService().getSingleUser();
 
     final msg = {
       'chatId': chatId,
-      'author': data['name'],
-      'content': content,
+      'userId': userId,
+      'message': content,
+      'senderType': data['name'],
+      'active': true,
       'timestamp': DateTime.now().toIso8601String()
     };
 
     _stompClient.send(
-      destination: '/app/user/chat',
+      destination: '/app/admin/chat',
       body: jsonEncode(msg)
     );
   }
