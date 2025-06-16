@@ -52,13 +52,15 @@ class _RegisterAddressPageState extends State<RegisterAddressPage>{
       _isLoading = true;
     });
 
-    await AuthService.register(name, password, email, cpf, phone, street, number, state, district, city, cep);
+    final response = await AuthService.register(name, password, email, cpf, phone, street, number, state, district, city, cep);
 
     setState(() {
       _isLoading = false;
     });
 
-    Navigator.pushReplacementNamed(context, '/home');
+    if(response) Navigator.pushReplacementNamed(context, '/login');
+
+    print('Error response returned false');
   }
 
   @override
@@ -130,7 +132,7 @@ class _RegisterAddressPageState extends State<RegisterAddressPage>{
                   ),
                   const SizedBox(height: 25),
                   CustomTextFormField(
-                    controller: _city,
+                    controller: _district,
                     hintText: 'Bairro',
                     validator: (value) => value == null || value.isEmpty ? 'Informe o bairro' : null,
                     icon: Icons.house
@@ -144,7 +146,7 @@ class _RegisterAddressPageState extends State<RegisterAddressPage>{
                   ),
                   const SizedBox(height: 25),
                   CustomTextFormField(
-                    controller: _city,
+                    controller: _state,
                     hintText: 'Estado',
                     validator: (value) => value == null || value.isEmpty ? 'Informe seu estado' : null,
                     icon: Icons.location_city
