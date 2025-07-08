@@ -1,10 +1,8 @@
 import 'package:ecommerce_app/constants/custom_colors.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
 import 'package:ecommerce_app/styles/buttonStyle.dart';
-import 'package:ecommerce_app/styles/textButtonStyle.dart';
 import 'package:ecommerce_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterAddressPage extends StatefulWidget{
   const RegisterAddressPage({super.key});
@@ -29,13 +27,6 @@ class _RegisterAddressPageState extends State<RegisterAddressPage>{
     if(!_formKey.currentState!.validate()){
       return;
     }
-
-    final prefs = await SharedPreferences.getInstance();
-    String? name = prefs.getString('name');
-    String? email = prefs.getString('email');
-    String? password = prefs.getString('password');
-    String? cpf = prefs.getString('cpf');
-    String? phone = prefs.getString('phone');
     String street = _street.text;
     String number = _number.text;
     String state = _state.text;
@@ -43,7 +34,7 @@ class _RegisterAddressPageState extends State<RegisterAddressPage>{
     String city = _city.text;
     String cep = _cep.text;
 
-    if(name == null || password == null || email == null || cpf == null || phone == null || street.isEmpty || number.isEmpty || city.isEmpty || cep.isEmpty){
+    if(street.isEmpty || number.isEmpty || city.isEmpty || cep.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Os campos devem ser preenchidos corretamente')));
       return;
     }
@@ -52,15 +43,13 @@ class _RegisterAddressPageState extends State<RegisterAddressPage>{
       _isLoading = true;
     });
 
-    final response = await AuthService.register(name, password, email, cpf, phone, street, number, state, district, city, cep);
+    final response = await AuthService.registerAddress(street, number, state, district, city, cep);
 
     setState(() {
       _isLoading = false;
     });
 
     if(response) Navigator.pushReplacementNamed(context, '/login');
-
-    print('Error response returned false');
   }
 
   @override
@@ -165,19 +154,6 @@ class _RegisterAddressPageState extends State<RegisterAddressPage>{
                     child: Text('Continuar')
                   ),
                   const SizedBox(height: 5),
-                  TextButton(
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterAddressPage())),
-                    style: textButtonStyle,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Já tem conta?'),
-                        const SizedBox(width: 5),
-                        Text('Click aqui.', style: TextStyle(color: customYellow, decoration: TextDecoration.underline),)
-                      ],
-                    )
-                  )
                 ],
               )
             )
