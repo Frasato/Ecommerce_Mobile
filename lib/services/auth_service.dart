@@ -11,15 +11,9 @@ class AuthService {
     String? email,
     String? cpf,
     String? phone,
-    String street,
-    String number,
-    String contryState,
-    String district,
-    String city,
-    String cep
   ) async{
     
-    if(name == null || password == null || email == null || cpf == null || street.isEmpty || number.isEmpty || city.isEmpty || cep.isEmpty){
+    if(name == null || password == null || email == null || cpf == null){
       return false;
     }
 
@@ -32,12 +26,6 @@ class AuthService {
         'email': email,
         'phone': phone,
         'cpf': cpf,
-        'street': street,
-        'number': number,
-        'countryState': contryState,
-        'district': district,
-        'city': city,
-        'CEP': cep
       })
     );
 
@@ -80,5 +68,31 @@ class AuthService {
     }
 
     return null;
+  }
+
+  static Future<bool> registerAddress(String street, String number, String countryState, String district, String city, String cep) async{
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    String? userId = prefs.getString('userId');
+
+    final response = await http.post(
+      Uri.parse('$apiUrl/auth/address/$userId'),
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':'Bearer $token'
+      },
+      body: jsonEncode({
+        'street': street,
+        'number': number,
+        'countryState': countryState,
+        'district': district,
+        'city': city,
+        'CEP': cep
+      })
+    );
+
+    if(response.statusCode == 201) return true;
+
+    return false;
   }
 }
