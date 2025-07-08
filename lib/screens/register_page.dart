@@ -1,10 +1,9 @@
 import 'package:ecommerce_app/constants/custom_colors.dart';
-import 'package:ecommerce_app/screens/register_address_page.dart';
+import 'package:ecommerce_app/services/auth_service.dart';
 import 'package:ecommerce_app/styles/buttonStyle.dart';
 import 'package:ecommerce_app/styles/textButtonStyle.dart';
 import 'package:ecommerce_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget{
   const RegisterPage({super.key});
@@ -31,16 +30,9 @@ class _RegisterPageState extends State<RegisterPage>{
         return;
       }
 
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('name', _nameController.text);
-    prefs.setString('email', _emailController.text);
-    prefs.setString('phone', _phoneController.text);
-    prefs.setString('password', _passwordController.text);
-    prefs.setString('cpf', _cpfController.text);
+    final response = await AuthService.register(_nameController.text, _passwordController.text, _emailController.text, _cpfController.text, _phoneController.text);
 
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) => const RegisterAddressPage()
-    ));
+    if(response) Navigator.pushReplacementNamed(context, "/login");
   }
 
   @override
